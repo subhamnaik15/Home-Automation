@@ -16,8 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".room.RoomActivity"/>
-        <activity android:name=".HomeActivity"/>
-        <activity android:name=".cardSlider.CardSliderActivity"
+        <activity android:name=".HomeActivity"
                   android:screenOrientation="portrait"/>
     </application>
 
