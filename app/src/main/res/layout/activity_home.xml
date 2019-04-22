@@ -14,7 +14,7 @@
             android:src="@android:drawable/ic_menu_sort_by_size"
             android:tint="#000000"
             android:id="@+id/btnClick"
-            app:backgroundTint="#ffffff"
+            app:backgroundTint="@android:color/transparent"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="8dp"/>
     <RelativeLayout
@@ -138,6 +138,31 @@
 
 
     </RelativeLayout>
+    <door.cyron.house.housedoor.custom.SwipeButton
+            android:id="@+id/swipeNoState"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            app:button_trail_enabled="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            app:button_image_disabled="@android:drawable/ic_partial_secure"
+            app:button_image_enabled="@android:drawable/ic_lock_idle_lock"
+            app:button_background="@drawable/shape_button_squared"
+            app:button_bottom_padding="18dp"
+            app:button_left_padding="18dp"
+            app:button_right_padding="18dp"
+            app:button_top_padding="18dp"
+            app:initial_state="disabled"
+            app:inner_text="SWIPE 2 TURN ON"
+            app:inner_text_background="@drawable/shape_squared"
+            app:inner_text_color="@android:color/white"
+            app:inner_text_size="11sp"
+            app:inner_text_top_padding="18dp"
+            app:inner_text_bottom_padding="18dp"
+            app:has_activate_state="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
 
 
 </LinearLayout>
