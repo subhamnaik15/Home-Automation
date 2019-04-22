@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".room.RoomActivity"/>
-        <activity android:name=".HomeActivity"
+        <activity android:name=".home.HomeActivity"
                   android:screenOrientation="portrait"/>
     </application>
 

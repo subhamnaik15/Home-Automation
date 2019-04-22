@@ -1,4 +1,4 @@
-package door.cyron.house.housedoor.cardSlider.motion;
+package door.cyron.house.housedoor.home.cardSlider;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -91,7 +91,7 @@ public class CardSliderLayoutManager extends RecyclerView.LayoutManager
             parcel.writeInt(anchorPos);
         }
 
-        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
+        public static final Creator<SavedState> CREATOR = new Creator<CardSliderLayoutManager.SavedState>() {
             @Override
             public CardSliderLayoutManager.SavedState createFromParcel(Parcel parcel) {
                 return new CardSliderLayoutManager.SavedState(parcel);

@@ -1,4 +1,4 @@
-package door.cyron.house.housedoor
+package door.cyron.house.housedoor.home
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -13,20 +13,31 @@ import android.view.View
 import android.widget.TextSwitcher
 import android.widget.TextView
 import android.widget.ViewSwitcher
-import door.cyron.house.housedoor.cardSlider.House
-import door.cyron.house.housedoor.cardSlider.SliderAdapter
-import door.cyron.house.housedoor.cardSlider.motion.CardSliderLayoutManager
-import door.cyron.house.housedoor.cardSlider.motion.CardSnapHelper
+import door.cyron.house.housedoor.R
+import door.cyron.house.housedoor.home.cardSlider.CardSliderLayoutManager
+import door.cyron.house.housedoor.home.cardSlider.CardSnapHelper
 import java.util.*
 
 class HomeActivity : AppCompatActivity() {
 
 
-    private val pics = intArrayOf(R.drawable.p1, R.drawable.p2, R.drawable.p3, R.drawable.p4, R.drawable.p5)
+    private val pics = intArrayOf(
+        R.drawable.p1,
+        R.drawable.p2,
+        R.drawable.p3,
+        R.drawable.p4,
+        R.drawable.p5
+    )
     private val descriptions =
-        intArrayOf(R.string.text1, R.string.text2, R.string.text3, R.string.text4, R.string.text5)
-    private val countries = arrayOf("PARIS", "SEOUL", "LONDON", "BEIJING", "THIRA")
-    private val places = arrayOf("The Louvre", "Gwanghwamun", "Tower Bridge", "Temple of Heaven", "Aegeana Sea")
+        intArrayOf(
+            R.string.text1,
+            R.string.text2,
+            R.string.text3,
+            R.string.text4,
+            R.string.text5
+        )
+    private val countries = arrayOf("KITCHEN", "HALL", "BATHROOM", "ROOM1", "ROOM2")
+    private val places = arrayOf("About", "About", "About", "About", "About")
     private val temperatures = arrayOf("21°C", "19°C", "17°C", "23°C", "20°C")
     private val times = arrayOf(
         "Aug 1 - Dec 15    7:00-18:00",
@@ -114,7 +125,7 @@ class HomeActivity : AppCompatActivity() {
         houseArrayList!!.add(house5)
 
 
-        sliderAdapter = SliderAdapter(houseArrayList, OnCardClickListener())
+        sliderAdapter = SliderAdapter(houseArrayList!!, OnCardClickListener())
     }
 
     private fun initRecyclerView() {
@@ -216,8 +227,14 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun onActiveCardChange(pos: Int) {
-        val animH = intArrayOf(R.anim.slide_in_right, R.anim.slide_out_left)
-        val animV = intArrayOf(R.anim.slide_in_top, R.anim.slide_out_bottom)
+        val animH = intArrayOf(
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
+        val animV = intArrayOf(
+            R.anim.slide_in_top,
+            R.anim.slide_out_bottom
+        )
 
         val left2right = pos < currentPosition
         if (left2right) {

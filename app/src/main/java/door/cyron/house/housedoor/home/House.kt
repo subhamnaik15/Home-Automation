@@ -1,4 +1,4 @@
-package door.cyron.house.housedoor.cardSlider
+package door.cyron.house.housedoor.home
 
 class House {
     var name: String? = null
