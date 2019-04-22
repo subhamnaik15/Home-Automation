@@ -16,7 +16,14 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         floatingActionButton = findViewById(R.id.btnClick)
-        floatingActionButton.setOnClickListener { startActivity(Intent(this@HomeActivity,CardSliderActivity::class.java)) }
+        floatingActionButton.setOnClickListener {
+            startActivity(
+                Intent(
+                    this@HomeActivity,
+                    CardSliderActivity::class.java
+                )
+            )
+        }
 
 
     }

@@ -7,15 +7,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import door.cyron.house.housedoor.R;
 
+import java.util.ArrayList;
+
 public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderCard> {
 
     private final int count;
-    private final int[] content;
+    private final ArrayList<House> content;
     private final View.OnClickListener listener;
 
-    public SliderAdapter(int[] content, int count, View.OnClickListener listener) {
-        this.content = content;
-        this.count = count;
+    public SliderAdapter(ArrayList<House> houseArrayList, View.OnClickListener listener) {
+        this.content = houseArrayList;
+        this.count = content.size();
         this.listener = listener;
     }
 
@@ -39,7 +41,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderCard
 
     @Override
     public void onBindViewHolder(SliderCard holder, int position) {
-        holder.imageView.setBackgroundResource(content[position % content.length]);
+        holder.imageView.setBackgroundResource(content.get(position % content.size()).getPic());
     }
 
     @Override
