@@ -132,7 +132,7 @@ public class CardSnapHelper extends LinearSnapHelper {
 
     @Nullable
     @Override
-    protected LinearSmoothScroller createSnapScroller(RecyclerView.LayoutManager layoutManager) {
+    protected LinearSmoothScroller createScroller(RecyclerView.LayoutManager layoutManager) {
         return ((CardSliderLayoutManager)layoutManager).getSmoothScroller(recyclerView);
     }
 

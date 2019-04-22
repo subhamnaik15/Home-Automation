@@ -64,7 +64,7 @@
         android:clipChildren="false"
         android:overScrollMode="never"
         app:layoutManager="door.cyron.house.housedoor.cardSlider.motion.CardSliderLayoutManager"
-        app:viewUpdater="door.cyron.house.housedoor.cardSlider.cards.CardsUpdater"/>
+       />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -94,10 +94,6 @@
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true">
 
-        <ImageSwitcher
-            android:id="@+id/ts_map"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 
         <View
             android:id="@+id/gradient_top"
@@ -141,24 +137,7 @@
 
         </FrameLayout>
 
-        <FrameLayout
-            android:id="@+id/green_dot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
-            <View
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:background="@drawable/green_dot_big"
-                android:alpha="0.5"/>
-
-            <View
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_gravity="center"
-                android:background="@drawable/green_dot_small"/>
-
-        </FrameLayout>
 
     </RelativeLayout>
 

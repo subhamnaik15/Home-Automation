@@ -97,9 +97,9 @@ public class DefaultViewUpdater implements CardSliderLayoutManager.ViewUpdater {
                     prevRight = activeCardRight;
                     prevTransition = 0;
                 } else {
-                    prevViewScale = ViewCompat.getScaleX(previewView);
+                    prevViewScale = previewView.getScaleX();
                     prevRight = lm.getDecoratedRight(previewView);
-                    prevTransition = ViewCompat.getTranslationX(previewView);
+                    prevTransition = previewView.getTranslationX();
                 }
 
                 final float prevBorder = (cardWidth - cardWidth * prevViewScale) / 2;
@@ -113,17 +113,13 @@ public class DefaultViewUpdater implements CardSliderLayoutManager.ViewUpdater {
             }
         }
 
-        ViewCompat.setScaleX(view, scale);
-        ViewCompat.setScaleY(view, scale);
+        view.setScaleX(scale);
+        view.setScaleY(scale);
         ViewCompat.setZ(view, z);
-        ViewCompat.setTranslationX(view, x);
-        ViewCompat.setAlpha(view, alpha);
+        view.setTranslationX(x);
+        view.setAlpha(alpha);
 
         previewView = view;
-    }
-
-    protected CardSliderLayoutManager getLayoutManager() {
-        return lm;
     }
 
 }

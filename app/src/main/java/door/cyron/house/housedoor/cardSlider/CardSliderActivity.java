@@ -2,49 +2,38 @@ package door.cyron.house.housedoor.cardSlider;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.StyleRes;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-import android.view.ViewTreeObserver;
-import android.widget.*;
+import android.widget.TextSwitcher;
+import android.widget.TextView;
+import android.widget.ViewSwitcher;
 import door.cyron.house.housedoor.R;
-import door.cyron.house.housedoor.cardSlider.cards.SliderAdapter;
 import door.cyron.house.housedoor.cardSlider.motion.CardSliderLayoutManager;
 import door.cyron.house.housedoor.cardSlider.motion.CardSnapHelper;
-import door.cyron.house.housedoor.cardSlider.utils.DecodeBitmapTask;
-
-import java.util.Random;
 
 public class CardSliderActivity extends AppCompatActivity {
 
-    private final int[][] dotCoords = new int[5][2];
     private final int[] pics = {R.drawable.p1, R.drawable.p2, R.drawable.p3, R.drawable.p4, R.drawable.p5};
-    private final int[] maps = {R.drawable.map_paris, R.drawable.map_seoul, R.drawable.map_london, R.drawable.map_beijing, R.drawable.map_greece};
     private final int[] descriptions = {R.string.text1, R.string.text2, R.string.text3, R.string.text4, R.string.text5};
     private final String[] countries = {"PARIS", "SEOUL", "LONDON", "BEIJING", "THIRA"};
     private final String[] places = {"The Louvre", "Gwanghwamun", "Tower Bridge", "Temple of Heaven", "Aegeana Sea"};
     private final String[] temperatures = {"21°C", "19°C", "17°C", "23°C", "20°C"};
     private final String[] times = {"Aug 1 - Dec 15    7:00-18:00", "Sep 5 - Nov 10    8:00-16:00", "Mar 8 - May 21    7:00-18:00"};
 
-    private final SliderAdapter sliderAdapter = new SliderAdapter(pics, 3, new OnCardClickListener());
+    private final SliderAdapter sliderAdapter = new SliderAdapter(pics, 20, new OnCardClickListener());
 
     private CardSliderLayoutManager layoutManger;
     private RecyclerView recyclerView;
-    private ImageSwitcher mapSwitcher;
     private TextSwitcher temperatureSwitcher;
     private TextSwitcher placeSwitcher;
     private TextSwitcher clockSwitcher;
     private TextSwitcher descriptionsSwitcher;
-    private View greenDot;
 
     private TextView country1TextView;
     private TextView country2TextView;
@@ -52,9 +41,6 @@ public class CardSliderActivity extends AppCompatActivity {
     private int countryOffset2;
     private long countryAnimDuration;
     private int currentPosition;
-
-    private DecodeBitmapTask decodeMapBitmapTask;
-    private DecodeBitmapTask.Listener mapLoadListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +50,6 @@ public class CardSliderActivity extends AppCompatActivity {
         initRecyclerView();
         initCountryText();
         initSwitchers();
-        initGreenDot();
     }
 
     private void initRecyclerView() {
@@ -89,9 +74,6 @@ public class CardSliderActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (isFinishing() && decodeMapBitmapTask != null) {
-            decodeMapBitmapTask.cancel(true);
-        }
     }
 
     private void initSwitchers() {
@@ -113,19 +95,7 @@ public class CardSliderActivity extends AppCompatActivity {
         descriptionsSwitcher.setFactory(new TextViewFactory(R.style.DescriptionTextView, false));
         descriptionsSwitcher.setCurrentText(getString(descriptions[0]));
 
-        mapSwitcher = (ImageSwitcher) findViewById(R.id.ts_map);
-        mapSwitcher.setInAnimation(this, R.anim.fade_in);
-        mapSwitcher.setOutAnimation(this, R.anim.fade_out);
-        mapSwitcher.setFactory(new ImageViewFactory());
-        mapSwitcher.setImageResource(maps[0]);
 
-        mapLoadListener = new DecodeBitmapTask.Listener() {
-            @Override
-            public void onPostExecuted(Bitmap bitmap) {
-                ((ImageView)mapSwitcher.getNextView()).setImageBitmap(bitmap);
-                mapSwitcher.showNext();
-            }
-        };
     }
 
     private void initCountryText() {
@@ -144,32 +114,6 @@ public class CardSliderActivity extends AppCompatActivity {
         country2TextView.setTypeface(Typeface.createFromAsset(getAssets(), "open-sans-extrabold.ttf"));
     }
 
-    private void initGreenDot() {
-        mapSwitcher.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                mapSwitcher.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
-                final int viewLeft = mapSwitcher.getLeft();
-                final int viewTop = mapSwitcher.getTop() + mapSwitcher.getHeight() / 3;
-
-                final int border = 100;
-                final int xRange = Math.max(1, mapSwitcher.getWidth() - border * 2);
-                final int yRange = Math.max(1, (mapSwitcher.getHeight() / 3) * 2 - border * 2);
-
-                final Random rnd = new Random();
-
-                for (int i = 0, cnt = dotCoords.length; i < cnt; i++) {
-                    dotCoords[i][0] = viewLeft + border + rnd.nextInt(xRange);
-                    dotCoords[i][1] = viewTop + border + rnd.nextInt(yRange);
-                }
-
-                greenDot = findViewById(R.id.green_dot);
-                greenDot.setX(dotCoords[0][0]);
-                greenDot.setY(dotCoords[0][1]);
-            }
-        });
-    }
 
     private void setCountryText(String text, boolean left2right) {
         final TextView invisibleText;
@@ -214,8 +158,8 @@ public class CardSliderActivity extends AppCompatActivity {
     }
 
     private void onActiveCardChange(int pos) {
-        int animH[] = new int[] {R.anim.slide_in_right, R.anim.slide_out_left};
-        int animV[] = new int[] {R.anim.slide_in_top, R.anim.slide_out_bottom};
+        int animH[] = new int[]{R.anim.slide_in_right, R.anim.slide_out_left};
+        int animV[] = new int[]{R.anim.slide_in_top, R.anim.slide_out_bottom};
 
         final boolean left2right = pos < currentPosition;
         if (left2right) {
@@ -242,29 +186,12 @@ public class CardSliderActivity extends AppCompatActivity {
 
         descriptionsSwitcher.setText(getString(descriptions[pos % descriptions.length]));
 
-        showMap(maps[pos % maps.length]);
-
-        ViewCompat.animate(greenDot)
-                .translationX(dotCoords[pos % dotCoords.length][0])
-                .translationY(dotCoords[pos % dotCoords.length][1])
-                .start();
+//        showMap(maps[pos % maps.length]);
 
         currentPosition = pos;
     }
 
-    private void showMap(@DrawableRes int resId) {
-        if (decodeMapBitmapTask != null) {
-            decodeMapBitmapTask.cancel(true);
-        }
-
-        final int w = mapSwitcher.getWidth();
-        final int h = mapSwitcher.getHeight();
-
-        decodeMapBitmapTask = new DecodeBitmapTask(getResources(), resId, w, h, mapLoadListener);
-        decodeMapBitmapTask.execute();
-    }
-
-    private class TextViewFactory implements  ViewSwitcher.ViewFactory {
+    private class TextViewFactory implements ViewSwitcher.ViewFactory {
 
         @StyleRes
         final int styleId;
@@ -295,23 +222,10 @@ public class CardSliderActivity extends AppCompatActivity {
 
     }
 
-    private class ImageViewFactory implements ViewSwitcher.ViewFactory {
-        @Override
-        public View makeView() {
-            final ImageView imageView = new ImageView(CardSliderActivity.this);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
-            final LayoutParams lp = new ImageSwitcher.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-            imageView.setLayoutParams(lp);
-
-            return imageView;
-        }
-    }
-
     private class OnCardClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            final CardSliderLayoutManager lm =  (CardSliderLayoutManager) recyclerView.getLayoutManager();
+            final CardSliderLayoutManager lm = (CardSliderLayoutManager) recyclerView.getLayoutManager();
 
             if (lm.isSmoothScrolling()) {
                 return;

@@ -1,13 +1,13 @@
-package door.cyron.house.housedoor.cardSlider.cards;
-
+package door.cyron.house.housedoor.cardSlider;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import door.cyron.house.housedoor.R;
 
-public class SliderAdapter extends RecyclerView.Adapter<SliderCard> {
+public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderCard> {
 
     private final int count;
     private final int[] content;
@@ -39,12 +39,12 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderCard> {
 
     @Override
     public void onBindViewHolder(SliderCard holder, int position) {
-        holder.setContent(content[position % content.length]);
+        holder.imageView.setBackgroundResource(content[position % content.length]);
     }
 
     @Override
     public void onViewRecycled(SliderCard holder) {
-        holder.clearContent();
+
     }
 
     @Override
@@ -52,4 +52,13 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderCard> {
         return count;
     }
 
+    class SliderCard extends RecyclerView.ViewHolder {
+
+        private final ImageView imageView;
+
+        SliderCard(View itemView) {
+            super(itemView);
+            imageView = (ImageView) itemView.findViewById(R.id.image);
+        }
+    }
 }
