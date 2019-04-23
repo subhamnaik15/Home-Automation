@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.TextSwitcher
@@ -19,6 +20,7 @@ import door.cyron.house.housedoor.R
 import door.cyron.house.housedoor.home.cardSlider.CardSliderLayoutManager
 import door.cyron.house.housedoor.home.cardSlider.CardSnapHelper
 import java.util.*
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -86,7 +88,29 @@ class HomeActivity : AppCompatActivity() {
         initCountryText()
         initSwitchers()
 
+        drawer?.addDrawerListener(object : DrawerLayout.DrawerListener {
 
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                //Called when a drawer's position changes.
+                Log.e("TAG", "-----> $slideOffset")
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+                //Called when a drawer has settled in a completely open state.
+                //The drawer is interactive at this point.
+                // If you have 2 drawers (left and right) you can distinguish
+                // them by using id of the drawerView. int id = drawerView.getId();
+                // id will be your layout's id: for example R.id.left_drawer
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                // Called when a drawer has settled in a completely closed state.
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {
+                // Called when the drawer motion state changes. The new state will be one of STATE_IDLE, STATE_DRAGGING or STATE_SETTLING.
+            }
+        })
     }
 
     private fun addNavValue() {
@@ -137,9 +161,9 @@ class HomeActivity : AppCompatActivity() {
 
         drawerList?.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(this)
-        drawerList?.setLayoutManager(layoutManager)
+        drawerList?.layoutManager = layoutManager
         adapter = NavigationDrawerAdapter(this@HomeActivity)
-        drawerList?.setAdapter(adapter)
+        drawerList?.adapter = adapter
     }
 
     private fun setNav(pos: Int) {
