@@ -6,7 +6,9 @@ import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.StyleRes
+import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
@@ -63,16 +65,97 @@ class HomeActivity : AppCompatActivity() {
     private var countryOffset2: Int = 0
     private var countryAnimDuration: Long = 0
     private var currentPosition: Int = 0
+    private var adapter: NavigationDrawerAdapter? = null
+
+    private val listItems = ArrayList<NavigationDrawerModel>()
+    private val listProfile = ArrayList<NavigationDrawerModel>()
+    private var drawer: DrawerLayout? = null
+    private var drawerList: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
+        drawerList = findViewById<View>(R.id.left_drawer) as RecyclerView
+
+        addNavValue()
+        setNav(0)
+
         setValue()
         initRecyclerView()
         initCountryText()
         initSwitchers()
 
 
+    }
+
+    private fun addNavValue() {
+
+        listItems.clear()
+        listProfile.clear()
+
+        val one = NavigationDrawerModel()
+        one.name = ""
+        one.image = 0
+        listItems.add(one)
+
+        val two = NavigationDrawerModel()
+        two.name = "drawer 1"
+        two.image = R.drawable.green_dot_small
+        listItems.add(two)
+
+        val thr = NavigationDrawerModel()
+        thr.name = "drawr 2"
+        thr.image = R.drawable.green_dot_small
+        listItems.add(thr)
+
+
+        val six = NavigationDrawerModel()
+        six.name = "drawer 3"
+        six.image = R.drawable.green_dot_small
+        listItems.add(six)
+
+        val twoo = NavigationDrawerModel()
+        twoo.name = "one"
+        twoo.image = R.drawable.p3
+        listProfile.add(twoo)
+
+        val thrr = NavigationDrawerModel()
+        thrr.name = "two"
+        thrr.image = R.drawable.p1
+        listProfile.add(thrr)
+
+        val thrrr = NavigationDrawerModel()
+        thrrr.name = "three"
+        thrrr.image = R.drawable.p2
+        listProfile.add(thrrr)
+
+
+    }
+
+    private fun updateNavigationDrawer() {
+
+        drawerList?.setHasFixedSize(true)
+        val layoutManager = LinearLayoutManager(this)
+        drawerList?.setLayoutManager(layoutManager)
+        adapter = NavigationDrawerAdapter(this@HomeActivity)
+        drawerList?.setAdapter(adapter)
+    }
+
+    private fun setNav(pos: Int) {
+
+        var clickedItem = listProfile[pos]
+        var zeroPosItem = listProfile[0]
+
+        listProfile.removeAt(0)
+        listProfile.add(0, clickedItem)
+        listProfile.removeAt(pos)
+        listProfile.add(pos, zeroPosItem)//swap clicked item
+
+        updateNavigationDrawer()
+
+        adapter?.setProfileDetails(listProfile)
+        adapter?.setDrawerList(listItems)
     }
 
     private fun setValue() {
@@ -324,6 +407,11 @@ class HomeActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         finish();
+    }
+
+    fun drawerClose(pos: Int) {
+//        drawer?.closeDrawer(Gravity.LEFT)
+        setNav(pos)
     }
 }
 

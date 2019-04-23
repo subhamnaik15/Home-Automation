@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:background="@drawable/burger_menu_top_bg">
+
+    <door.cyron.house.housedoor.utility.CircleImageView
+            android:id="@+id/img_profile"
+            android:layout_width="64dp"
+            android:tag="one"
+            android:layout_height="64dp"
+            android:layout_alignTop="@+id/imageViewTwo"
+            android:layout_alignRight="@+id/txtClass"
+            android:layout_alignEnd="@+id/txtClass"/>
+
+    <TextView
+            android:id="@+id/txtName"
+            android:layout_below="@+id/img_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="17dp"
+            android:text="satyam kumar naik"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"/>
+
+    <TextView
+
+            android:id="@+id/txtClass"
+            android:layout_below="@+id/txtName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="17dp"
+            android:text="Class :2nd"
+
+            android:textSize="14sp"
+            android:textColor="@android:color/white"/>
+    <!-- </LinearLayout>-->
+    <door.cyron.house.housedoor.utility.CircleImageView
+            android:id="@+id/imageViewTwo"
+            android:layout_width="40dp"
+            android:tag="three"
+            android:layout_height="40dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="25dp"
+            android:layout_toLeftOf="@+id/imageViewThreeDemo"/>
+    <door.cyron.house.housedoor.utility.CircleImageView
+            android:id="@+id/imageViewTwoDemo"
+            android:layout_width="40dp"
+            android:tag="three"
+            android:layout_height="40dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="25dp"
+            android:layout_toLeftOf="@+id/imageViewThreeDemo"/>
+
+    <door.cyron.house.housedoor.utility.CircleImageView
+            android:id="@+id/imageViewThree"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:tag="two"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="25dp"/>
+    <door.cyron.house.housedoor.utility.CircleImageView
+            android:id="@+id/imageViewThreeDemo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:tag="two"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="25dp"/>
+
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/white"
+            android:layout_height="7dp"/>
+
+</RelativeLayout>
