@@ -155,6 +155,18 @@ class HomeActivity : AppCompatActivity() {
         listProfile.add(thrrr)
 
 
+        val thrrr2 = NavigationDrawerModel()
+        thrrr2.name = "four"
+        thrrr2.image = R.drawable.p2
+        listProfile.add(thrrr2)
+
+
+        val thrrr3 = NavigationDrawerModel()
+        thrrr3.name = "five"
+        thrrr3.image = R.drawable.p2
+        listProfile.add(thrrr3)
+
+
     }
 
     private fun updateNavigationDrawer() {

@@ -4,37 +4,36 @@ package door.cyron.house.housedoor.home
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import door.cyron.house.housedoor.R
 import door.cyron.house.housedoor.utility.CircleImageView
+import door.cyron.house.housedoor.utility.Util
+import door.cyron.house.housedoor.utility.Util.Companion.rotateImageDropdown
 import java.util.*
 
 class NavigationDrawerAdapter(private val activity: HomeActivity) :
     RecyclerView.Adapter<NavigationDrawerAdapter.ViewHolder>() {
     private val listItems = ArrayList<NavigationDrawerModel>()
-    private val drawerList: ArrayList<NavigationDrawerModel>
-    private val profileDetails: ArrayList<NavigationDrawerModel>
+    private val drawerList: ArrayList<NavigationDrawerModel> = ArrayList()
+    private val profileDetails: ArrayList<NavigationDrawerModel> = ArrayList()
     private var pos = 99
+    private var isclicked = false
 
     private var viewoneHeight: Int = 0
     private var viewoneWidth: Int = 0
     private var viewoneX: Float = 0.toFloat()
     private var viewTwoX: Float = 0.toFloat()
-
-    init {
-        drawerList = ArrayList()
-        profileDetails = ArrayList()
-    }
 
 
     class ViewHolder(itemView: View, ViewType: Int) : RecyclerView.ViewHolder(itemView) {
@@ -48,6 +47,7 @@ class NavigationDrawerAdapter(private val activity: HomeActivity) :
         internal lateinit var txtName: TextView
         internal lateinit var txtClass: TextView
         internal lateinit var imgNavIcon: ImageView
+        internal lateinit var imageDropdown: ImageView
         internal lateinit var nav_list_row: RelativeLayout
 
         init {
@@ -59,6 +59,7 @@ class NavigationDrawerAdapter(private val activity: HomeActivity) :
                 imageViewThreeDemo = itemView.findViewById(R.id.imageViewThreeDemo)
                 txtName = itemView.findViewById(R.id.txtName)
                 txtClass = itemView.findViewById(R.id.txtClass)
+                imageDropdown = itemView.findViewById(R.id.imageDropdown)
             } else {
                 txtItemName = itemView.findViewById<View>(R.id.listTitle) as TextView
                 imgNavIcon = itemView.findViewById<View>(R.id.imgNavIcon) as ImageView
@@ -124,14 +125,62 @@ class NavigationDrawerAdapter(private val activity: HomeActivity) :
                 startAnimationAcc(holder.imageViewThreeDemo, holder.img_profile, holder.imageViewThree, 2)
             }
 
+            holder.imageDropdown.setOnClickListener { view ->
+                //isclicked is set true if clicked for seeing list of accounts
+
+                if (isclicked) {
+
+                    if (listItems.size > 0)
+                        listItems.clear()
+                    listItems.addAll(drawerList)
+                    notifyDataSetChanged()
+                    isclicked = false
+
+                    //animate show more account image down
+                    rotateImageDropdown(180f, 0.0f, view)
+
+                } else {
+
+
+                    if (listItems.size > 0)
+                        listItems.clear()
+                    listItems.addAll(profileDetails)
+                    isclicked = true
+                    notifyDataSetChanged()
+
+                    //animate show more account image up
+                    rotateImageDropdown(0.0f, 180f, view)
+
+                }
+            }
+
+
         } else {
 
-            if (posItem == pos) {
-                holder.nav_list_row.setBackgroundResource(R.color.black_transparent)
-            } else {
+            val largeIcon: Bitmap
+            if (isclicked) {
+                val d = activity.resources.displayMetrics.density
+
+                largeIcon = BitmapFactory.decodeResource(activity.resources, listItems[posItem].image)
+                val drawable = RoundedBitmapDrawableFactory.create(
+                    activity.resources,
+                    largeIcon
+                )
+                drawable.isCircular = true
+                holder.imgNavIcon.setImageDrawable(drawable)
                 holder.nav_list_row.setBackgroundColor(Color.parseColor("#ffffff"))
+            } else {
+
+
+                if (posItem == pos) {
+                    holder.nav_list_row.setBackgroundResource(R.color.black_transparent)
+                } else {
+
+                    holder.nav_list_row.setBackgroundColor(Color.parseColor("#ffffff"))
+                }
+                holder.imgNavIcon.setImageResource(listItems[posItem].image)
+
             }
-            holder.imgNavIcon.setImageResource(listItems[posItem].image)
 
             holder.nav_list_row.tag = listItems[posItem].name
 
@@ -147,7 +196,6 @@ class NavigationDrawerAdapter(private val activity: HomeActivity) :
         pos = 99
         notifyDataSetChanged()
     }
-
 
     private fun startAnimationAccTwo(viewTwoDemo: View, viewone: CircleImageView, viewTwo: CircleImageView, pos: Int) {
 
