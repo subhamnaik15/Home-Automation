@@ -17,6 +17,8 @@ import android.widget.TextSwitcher
 import android.widget.TextView
 import android.widget.ViewSwitcher
 import door.cyron.house.housedoor.R
+import door.cyron.house.housedoor.drawer.NavigationDrawerAdapter
+import door.cyron.house.housedoor.drawer.NavigationDrawerModel
 import door.cyron.house.housedoor.home.cardSlider.CardSliderLayoutManager
 import door.cyron.house.housedoor.home.cardSlider.CardSnapHelper
 import java.util.*
@@ -51,7 +53,7 @@ class HomeActivity : AppCompatActivity() {
         "Sep 5 - Nov 10    8:00-16:00"
     )
 
-    private var houseArrayList: ArrayList<House>? = null
+    private var houseModelArrayList: ArrayList<HouseModel>? = null
     private var sliderAdapter: SliderAdapter? = null
 
     private var layoutManger: CardSliderLayoutManager? = null
@@ -195,56 +197,56 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setValue() {
-        houseArrayList = ArrayList()
-        val house1 = House()
+        houseModelArrayList = ArrayList()
+        val house1 = HouseModel()
         house1.pic = pics[0]
         house1.descriptions = getString(descriptions[0])
         house1.name = countries[0]
         house1.place = places[0]
         house1.temperature = temperatures[0]
         house1.time = times[0]
-        houseArrayList!!.add(house1)
+        houseModelArrayList!!.add(house1)
 
-        val house2 = House()
+        val house2 = HouseModel()
         house2.pic = pics[1]
         house2.descriptions = getString(descriptions[1])
         house2.name = countries[1]
         house2.place = places[1]
         house2.temperature = temperatures[1]
         house2.time = times[1]
-        houseArrayList!!.add(house2)
+        houseModelArrayList!!.add(house2)
 
 
-        val house3 = House()
+        val house3 = HouseModel()
         house3.pic = pics[2]
         house3.descriptions = getString(descriptions[2])
         house3.name = countries[2]
         house3.place = places[2]
         house3.temperature = temperatures[2]
         house3.time = times[2]
-        houseArrayList!!.add(house3)
+        houseModelArrayList!!.add(house3)
 
-        val house4 = House()
+        val house4 = HouseModel()
         house4.pic = pics[3]
         house4.descriptions = getString(descriptions[3])
         house4.name = countries[3]
         house4.place = places[3]
         house4.temperature = temperatures[3]
         house4.time = times[3]
-        houseArrayList!!.add(house4)
+        houseModelArrayList!!.add(house4)
 
 
-        val house5 = House()
+        val house5 = HouseModel()
         house5.pic = pics[4]
         house5.descriptions = getString(descriptions[4])
         house5.name = countries[4]
         house5.place = places[4]
         house5.temperature = temperatures[4]
         house5.time = times[4]
-        houseArrayList!!.add(house5)
+        houseModelArrayList!!.add(house5)
 
 
-        sliderAdapter = SliderAdapter(houseArrayList!!, OnCardClickListener())
+        sliderAdapter = SliderAdapter(houseModelArrayList!!, OnCardClickListener())
     }
 
     private fun initRecyclerView() {
@@ -268,21 +270,21 @@ class HomeActivity : AppCompatActivity() {
     private fun initSwitchers() {
         temperatureSwitcher = findViewById<View>(R.id.ts_temperature) as TextSwitcher
         temperatureSwitcher!!.setFactory(TextViewFactory(R.style.TemperatureTextView, true))
-        temperatureSwitcher!!.setCurrentText(houseArrayList!![0].temperature)
+        temperatureSwitcher!!.setCurrentText(houseModelArrayList!![0].temperature)
 
         placeSwitcher = findViewById<View>(R.id.ts_place) as TextSwitcher
         placeSwitcher!!.setFactory(TextViewFactory(R.style.PlaceTextView, false))
-        placeSwitcher!!.setCurrentText(houseArrayList!![0].place)
+        placeSwitcher!!.setCurrentText(houseModelArrayList!![0].place)
 
         clockSwitcher = findViewById<View>(R.id.ts_clock) as TextSwitcher
         clockSwitcher!!.setFactory(TextViewFactory(R.style.ClockTextView, false))
-        clockSwitcher!!.setCurrentText(houseArrayList!![0].time)
+        clockSwitcher!!.setCurrentText(houseModelArrayList!![0].time)
 
         descriptionsSwitcher = findViewById<View>(R.id.ts_description) as TextSwitcher
         descriptionsSwitcher!!.setInAnimation(this, android.R.anim.fade_in)
         descriptionsSwitcher!!.setOutAnimation(this, android.R.anim.fade_out)
         descriptionsSwitcher!!.setFactory(TextViewFactory(R.style.DescriptionTextView, false))
-        descriptionsSwitcher!!.setCurrentText(houseArrayList!![0].descriptions)
+        descriptionsSwitcher!!.setCurrentText(houseModelArrayList!![0].descriptions)
 
 
     }
@@ -296,7 +298,7 @@ class HomeActivity : AppCompatActivity() {
 
         country1TextView!!.x = countryOffset1.toFloat()
         country2TextView!!.x = countryOffset2.toFloat()
-        country1TextView!!.text = houseArrayList!![0].name
+        country1TextView!!.text = houseModelArrayList!![0].name
         country2TextView!!.alpha = 0f
 
         country1TextView!!.typeface = Typeface.createFromAsset(assets, "open-sans-extrabold.ttf")
@@ -364,21 +366,21 @@ class HomeActivity : AppCompatActivity() {
             animV[1] = R.anim.slide_out_top
         }
 
-        setCountryText(houseArrayList!!.get(pos % houseArrayList!!.size).name!!, left2right)
+        setCountryText(houseModelArrayList!!.get(pos % houseModelArrayList!!.size).name!!, left2right)
 
         temperatureSwitcher!!.setInAnimation(this@HomeActivity, animH[0])
         temperatureSwitcher!!.setOutAnimation(this@HomeActivity, animH[1])
-        temperatureSwitcher!!.setText(houseArrayList!![pos % houseArrayList!!.size].temperature)
+        temperatureSwitcher!!.setText(houseModelArrayList!![pos % houseModelArrayList!!.size].temperature)
 
         placeSwitcher!!.setInAnimation(this@HomeActivity, animV[0])
         placeSwitcher!!.setOutAnimation(this@HomeActivity, animV[1])
-        placeSwitcher!!.setText(houseArrayList!![pos % houseArrayList!!.size].place)
+        placeSwitcher!!.setText(houseModelArrayList!![pos % houseModelArrayList!!.size].place)
 
         clockSwitcher!!.setInAnimation(this@HomeActivity, animV[0])
         clockSwitcher!!.setOutAnimation(this@HomeActivity, animV[1])
-        clockSwitcher!!.setText(houseArrayList!![pos % houseArrayList!!.size].time)
+        clockSwitcher!!.setText(houseModelArrayList!![pos % houseModelArrayList!!.size].time)
 
-        descriptionsSwitcher!!.setText(houseArrayList!![pos % houseArrayList!!.size].descriptions)
+        descriptionsSwitcher!!.setText(houseModelArrayList!![pos % houseModelArrayList!!.size].descriptions)
 
         currentPosition = pos
     }

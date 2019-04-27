@@ -1,6 +1,6 @@
 package door.cyron.house.housedoor.home
 
-class House {
+class HouseModel {
     var name: String? = null
     var place: String? = null
     var temperature: String? = null

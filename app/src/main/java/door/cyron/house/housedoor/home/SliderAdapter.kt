@@ -8,7 +8,7 @@ import android.widget.ImageView
 import door.cyron.house.housedoor.R
 import java.util.*
 
-class SliderAdapter(private val content: ArrayList<House>, private val listener: View.OnClickListener?) :
+class SliderAdapter(private val content: ArrayList<HouseModel>, private val listener: View.OnClickListener?) :
     RecyclerView.Adapter<SliderAdapter.SliderCard>() {
 
     private val count: Int = content.size

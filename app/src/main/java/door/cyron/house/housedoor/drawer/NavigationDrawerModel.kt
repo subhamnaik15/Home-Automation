@@ -1,4 +1,4 @@
-package door.cyron.house.housedoor.home
+package door.cyron.house.housedoor.drawer
 
 class NavigationDrawerModel {
     var name: String? = null
