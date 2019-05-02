@@ -316,18 +316,6 @@ class HomeFragment : Fragment() {
 
             val clickedPosition = recyclerView!!.getChildAdapterPosition(view)
             if (clickedPosition == activeCardPosition) {
-                //                final Intent intent = new Intent(HomeActivity.this, DetailsActivity.class);
-                //                intent.putExtra(DetailsActivity.BUNDLE_IMAGE_ID, pics[activeCardPosition % pics.length]);
-                //
-                //                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                //                    startActivity(intent);
-                //                } else {
-                //                    final CardView cardView = (CardView) view;
-                //                    final View sharedView = cardView.getChildAt(cardView.getChildCount() - 1);
-                //                    final ActivityOptions options = ActivityOptions
-                //                            .makeSceneTransitionAnimation(HomeActivity.this, sharedView, "shared");
-                //                    startActivity(intent, options.toBundle());
-                //                }
             } else if (clickedPosition > activeCardPosition) {
                 recyclerView!!.smoothScrollToPosition(clickedPosition)
                 onActiveCardChange(clickedPosition)
