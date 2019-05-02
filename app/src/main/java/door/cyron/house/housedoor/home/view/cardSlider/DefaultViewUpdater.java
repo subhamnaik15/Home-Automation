@@ -1,4 +1,4 @@
-package door.cyron.house.housedoor.home.cardSlider;
+package door.cyron.house.housedoor.home.view.cardSlider;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;

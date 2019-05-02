@@ -15,6 +15,7 @@ import android.widget.ViewSwitcher
 import door.cyron.house.housedoor.R
 import door.cyron.house.housedoor.drawer.NavigationDrawerAdapter
 import door.cyron.house.housedoor.drawer.NavigationDrawerModel
+import door.cyron.house.housedoor.home.view.HomeFragment
 import door.cyron.house.housedoor.utility.Constant.Companion.HOME_TITLE
 import test.cyron.nmschool.nmschool.utility.FragmentHelper
 import java.util.*

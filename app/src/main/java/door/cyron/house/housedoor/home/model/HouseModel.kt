@@ -1,4 +1,4 @@
-package door.cyron.house.housedoor.home
+package door.cyron.house.housedoor.home.model
 
 class HouseModel {
     var name: String? = null

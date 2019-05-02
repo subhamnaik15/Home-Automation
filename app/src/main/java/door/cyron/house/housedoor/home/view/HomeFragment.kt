@@ -1,4 +1,4 @@
-package door.cyron.house.housedoor.home
+package door.cyron.house.housedoor.home.view
 
 
 import android.animation.AnimatorSet
@@ -17,8 +17,10 @@ import android.widget.TextSwitcher
 import android.widget.TextView
 import android.widget.ViewSwitcher
 import door.cyron.house.housedoor.R
-import door.cyron.house.housedoor.home.cardSlider.CardSliderLayoutManager
-import door.cyron.house.housedoor.home.cardSlider.CardSnapHelper
+import door.cyron.house.housedoor.home.view.adapter.SliderAdapter
+import door.cyron.house.housedoor.home.view.cardSlider.CardSliderLayoutManager
+import door.cyron.house.housedoor.home.view.cardSlider.CardSnapHelper
+import door.cyron.house.housedoor.home.model.HouseModel
 import java.util.*
 
 
@@ -139,7 +141,8 @@ class HomeFragment : Fragment() {
         houseModelArrayList!!.add(house5)
 
 
-        sliderAdapter = SliderAdapter(houseModelArrayList!!, OnCardClickListener())
+        sliderAdapter =
+            SliderAdapter(houseModelArrayList!!, OnCardClickListener())
     }
 
     private fun initRecyclerView(view: View) {

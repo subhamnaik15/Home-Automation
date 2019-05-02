@@ -75,7 +75,7 @@
             android:layout_marginStart="@dimen/recycler_view_left_offset"
             android:clipChildren="false"
             android:overScrollMode="never"
-            app:layoutManager="door.cyron.house.housedoor.home.cardSlider.CardSliderLayoutManager"
+            app:layoutManager=".home.view.cardSlider.CardSliderLayoutManager"
     />
 
     <FrameLayout

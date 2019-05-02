@@ -1,4 +1,4 @@
-package door.cyron.house.housedoor.home.cardSlider;
+package door.cyron.house.housedoor.home.view.cardSlider;
 
 import android.content.Context;
 import android.content.res.TypedArray;

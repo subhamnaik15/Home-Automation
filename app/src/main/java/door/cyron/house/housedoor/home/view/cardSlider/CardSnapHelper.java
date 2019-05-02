@@ -1,4 +1,4 @@
-package door.cyron.house.housedoor.home.cardSlider;
+package door.cyron.house.housedoor.home.view.cardSlider;
 
 import android.graphics.PointF;
 import android.support.annotation.NonNull;
@@ -19,7 +19,7 @@ public class CardSnapHelper extends LinearSnapHelper {
     private RecyclerView recyclerView;
 
     /**
-     * Attaches the {@link door.cyron.house.housedoor.home.cardSlider.motion.CardSnapHelper} to the provided RecyclerView, by calling
+     * Attaches the {@link door.cyron.house.housedoor.home.view.cardSlider.motion.CardSnapHelper} to the provided RecyclerView, by calling
      * {@link RecyclerView#setOnFlingListener(RecyclerView.OnFlingListener)}.
      * You can call this method with {@code null} to detach it from the current RecyclerView.
      *
