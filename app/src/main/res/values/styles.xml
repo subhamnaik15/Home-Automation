@@ -8,7 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
-
+    <style name="SecondaryButton_green" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:background">@drawable/secondary_button_green</item>
+    </style>
     <style name="TemperatureTextView">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/temperature_text</item>

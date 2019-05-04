@@ -13,22 +13,24 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextSwitcher
 import android.widget.TextView
 import android.widget.ViewSwitcher
 import door.cyron.house.housedoor.R
+import door.cyron.house.housedoor.callbacks.OnItemClickListener
+import door.cyron.house.housedoor.databinding.FragmentHomeBinding
+import door.cyron.house.housedoor.home.model.HouseModel
+import door.cyron.house.housedoor.home.model.SwitchModel
 import door.cyron.house.housedoor.home.view.adapter.SliderAdapter
 import door.cyron.house.housedoor.home.view.cardSlider.CardSliderLayoutManager
 import door.cyron.house.housedoor.home.view.cardSlider.CardSnapHelper
-import door.cyron.house.housedoor.home.model.HouseModel
-import java.util.*
 
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), OnItemClickListener<SwitchModel> {
+
 
     private val pics = intArrayOf(
         R.drawable.p1,
@@ -60,36 +62,60 @@ class HomeFragment : Fragment() {
     private var sliderAdapter: SliderAdapter? = null
 
     private var layoutManger: CardSliderLayoutManager? = null
-    private var recyclerView: RecyclerView? = null
-    private var temperatureSwitcher: TextSwitcher? = null
-    private var placeSwitcher: TextSwitcher? = null
-    private var clockSwitcher: TextSwitcher? = null
-    private var descriptionsSwitcher: TextSwitcher? = null
-
-    private var country1TextView: TextView? = null
-    private var country2TextView: TextView? = null
     private var countryOffset1: Int = 0
     private var countryOffset2: Int = 0
     private var countryAnimDuration: Long = 0
     private var currentPosition: Int = 0
 
 
+    private lateinit var binding: FragmentHomeBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+//        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         setValue()
-        initRecyclerView(view)
-        initCountryText(view)
-        initSwitchers(view)
+        initRecyclerView()
+        initCountryText()
+        initSwitchers()
+        binding.recyclerViewSwitch.adapter = SwitchAdapter(activity, this)
 
+        fillSwitchList()
 
-        return view
+        return binding.root
     }
 
+    private fun fillSwitchList() {
+
+        var list = ArrayList<SwitchModel>()
+        val a1 = SwitchModel()
+        a1.name = "satyam"
+        a1.title = "title1"
+        a1.type = "light"
+        list.add(a1)
+        val a2 = SwitchModel()
+        a2.name = "subham"
+        a2.title = "title1"
+        a2.type = "fan"
+        list.add(a2)
+        val a3 = SwitchModel()
+        a3.name = "micky"
+        a3.title = "title1"
+        a3.type = "fan"
+        list.add(a3)
+        list.addAll(list)
+        list.addAll(list)
+
+        (binding.recyclerViewSwitch.adapter as SwitchAdapter).setList(list)
+    }
+
+    override fun onItemClick(t: SwitchModel, view: View, position: Int) {
+
+    }
 
     private fun setValue() {
         houseModelArrayList = ArrayList()
@@ -145,12 +171,11 @@ class HomeFragment : Fragment() {
             SliderAdapter(houseModelArrayList!!, OnCardClickListener())
     }
 
-    private fun initRecyclerView(view: View) {
-        recyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView!!.adapter = sliderAdapter
-        recyclerView!!.setHasFixedSize(true)
+    private fun initRecyclerView() {
+        binding.recyclerView.adapter = sliderAdapter
+        binding.recyclerView.setHasFixedSize(true)
 
-        recyclerView!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     onActiveCardChange()
@@ -158,58 +183,52 @@ class HomeFragment : Fragment() {
             }
         })
 
-        layoutManger = recyclerView!!.layoutManager as CardSliderLayoutManager?
+        layoutManger = binding.recyclerView.layoutManager as CardSliderLayoutManager?
 
-        CardSnapHelper().attachToRecyclerView(recyclerView)
+        CardSnapHelper().attachToRecyclerView(binding.recyclerView)
     }
 
-    private fun initSwitchers(view: View) {
-        temperatureSwitcher = view.findViewById<View>(R.id.ts_temperature) as TextSwitcher
-        temperatureSwitcher!!.setFactory(TextViewFactory(R.style.TemperatureTextView, true))
-        temperatureSwitcher!!.setCurrentText(houseModelArrayList!![0].temperature)
+    private fun initSwitchers() {
+        binding.tsTemperature.setFactory(TextViewFactory(R.style.TemperatureTextView, true))
+        binding.tsTemperature.setCurrentText(houseModelArrayList!![0].temperature)
 
-        placeSwitcher = view.findViewById<View>(R.id.ts_place) as TextSwitcher
-        placeSwitcher!!.setFactory(TextViewFactory(R.style.PlaceTextView, false))
-        placeSwitcher!!.setCurrentText(houseModelArrayList!![0].place)
+        binding.tsPlace.setFactory(TextViewFactory(R.style.PlaceTextView, false))
+        binding.tsPlace.setCurrentText(houseModelArrayList!![0].place)
 
-        clockSwitcher = view.findViewById<View>(R.id.ts_clock) as TextSwitcher
-        clockSwitcher!!.setFactory(TextViewFactory(R.style.ClockTextView, false))
-        clockSwitcher!!.setCurrentText(houseModelArrayList!![0].time)
+        binding.tsClock.setFactory(TextViewFactory(R.style.ClockTextView, false))
+        binding.tsClock.setCurrentText(houseModelArrayList!![0].time)
 
-        descriptionsSwitcher = view.findViewById<View>(R.id.ts_description) as TextSwitcher
-        descriptionsSwitcher!!.setInAnimation(activity, android.R.anim.fade_in)
-        descriptionsSwitcher!!.setOutAnimation(activity, android.R.anim.fade_out)
-        descriptionsSwitcher!!.setFactory(TextViewFactory(R.style.DescriptionTextView, false))
-        descriptionsSwitcher!!.setCurrentText(houseModelArrayList!![0].descriptions)
+        binding.tsDescription.setInAnimation(activity, android.R.anim.fade_in)
+        binding.tsDescription.setOutAnimation(activity, android.R.anim.fade_out)
+        binding.tsDescription.setFactory(TextViewFactory(R.style.DescriptionTextView, false))
+        binding.tsDescription.setCurrentText(houseModelArrayList!![0].descriptions)
 
 
     }
 
-    private fun initCountryText(view: View) {
+    private fun initCountryText() {
         countryAnimDuration = resources.getInteger(R.integer.labels_animation_duration).toLong()
         countryOffset1 = resources.getDimensionPixelSize(R.dimen.left_offset)
         countryOffset2 = resources.getDimensionPixelSize(R.dimen.card_width)
-        country1TextView = view.findViewById<View>(R.id.tv_country_1) as TextView
-        country2TextView = view.findViewById<View>(R.id.tv_country_2) as TextView
 
-        country1TextView!!.x = countryOffset1.toFloat()
-        country2TextView!!.x = countryOffset2.toFloat()
-        country1TextView!!.text = houseModelArrayList!![0].name
-        country2TextView!!.alpha = 0f
+        binding.tvCountry1.x = countryOffset1.toFloat()
+        binding.tvCountry2.x = countryOffset2.toFloat()
+        binding.tvCountry1.text = houseModelArrayList!![0].name
+        binding.tvCountry2.alpha = 0f
 
-        country1TextView!!.typeface = Typeface.createFromAsset(activity!!.assets, "open-sans-extrabold.ttf")
-        country2TextView!!.typeface = Typeface.createFromAsset(activity!!.assets, "open-sans-extrabold.ttf")
+        binding.tvCountry1.typeface = Typeface.createFromAsset(activity!!.assets, "open-sans-extrabold.ttf")
+        binding.tvCountry2.typeface = Typeface.createFromAsset(activity!!.assets, "open-sans-extrabold.ttf")
     }
 
     private fun setCountryText(text: String, left2right: Boolean) {
         val invisibleText: TextView
         val visibleText: TextView
-        if (country1TextView!!.alpha > country2TextView!!.alpha) {
-            visibleText = country1TextView as TextView
-            invisibleText = country2TextView as TextView
+        if (binding.tvCountry1.alpha > binding.tvCountry2.alpha) {
+            visibleText = binding.tvCountry1
+            invisibleText = binding.tvCountry2
         } else {
-            visibleText = country2TextView as TextView
-            invisibleText = country1TextView as TextView
+            visibleText = binding.tvCountry2
+            invisibleText = binding.tvCountry1
         }
 
         val vOffset: Int
@@ -264,19 +283,19 @@ class HomeFragment : Fragment() {
 
         setCountryText(houseModelArrayList!!.get(pos % houseModelArrayList!!.size).name!!, left2right)
 
-        temperatureSwitcher!!.setInAnimation(activity, animH[0])
-        temperatureSwitcher!!.setOutAnimation(activity, animH[1])
-        temperatureSwitcher!!.setText(houseModelArrayList!![pos % houseModelArrayList!!.size].temperature)
+        binding.tsTemperature.setInAnimation(activity, animH[0])
+        binding.tsTemperature.setOutAnimation(activity, animH[1])
+        binding.tsTemperature.setText(houseModelArrayList!![pos % houseModelArrayList!!.size].temperature)
 
-        placeSwitcher!!.setInAnimation(activity, animV[0])
-        placeSwitcher!!.setOutAnimation(activity, animV[1])
-        placeSwitcher!!.setText(houseModelArrayList!![pos % houseModelArrayList!!.size].place)
+        binding.tsPlace.setInAnimation(activity, animV[0])
+        binding.tsPlace.setOutAnimation(activity, animV[1])
+        binding.tsPlace.setText(houseModelArrayList!![pos % houseModelArrayList!!.size].place)
 
-        clockSwitcher!!.setInAnimation(activity, animV[0])
-        clockSwitcher!!.setOutAnimation(activity, animV[1])
-        clockSwitcher!!.setText(houseModelArrayList!![pos % houseModelArrayList!!.size].time)
+        binding.tsClock.setInAnimation(activity, animV[0])
+        binding.tsClock.setOutAnimation(activity, animV[1])
+        binding.tsClock.setText(houseModelArrayList!![pos % houseModelArrayList!!.size].time)
 
-        descriptionsSwitcher!!.setText(houseModelArrayList!![pos % houseModelArrayList!!.size].descriptions)
+        binding.tsDescription.setText(houseModelArrayList!![pos % houseModelArrayList!!.size].descriptions)
 
         currentPosition = pos
     }
@@ -306,7 +325,7 @@ class HomeFragment : Fragment() {
 
     private inner class OnCardClickListener : View.OnClickListener {
         override fun onClick(view: View) {
-            val lm = recyclerView!!.layoutManager as CardSliderLayoutManager?
+            val lm = binding.recyclerView.layoutManager as CardSliderLayoutManager?
 
             if (lm!!.isSmoothScrolling) {
                 return
@@ -317,10 +336,10 @@ class HomeFragment : Fragment() {
                 return
             }
 
-            val clickedPosition = recyclerView!!.getChildAdapterPosition(view)
+            val clickedPosition = binding.recyclerView.getChildAdapterPosition(view)
             if (clickedPosition == activeCardPosition) {
             } else if (clickedPosition > activeCardPosition) {
-                recyclerView!!.smoothScrollToPosition(clickedPosition)
+                binding.recyclerView.smoothScrollToPosition(clickedPosition)
                 onActiveCardChange(clickedPosition)
             }
         }
