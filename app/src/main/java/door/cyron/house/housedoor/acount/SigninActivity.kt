@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.airbnb.lottie.LottieAnimationView
 import door.cyron.house.housedoor.home.HomeActivity
 import door.cyron.house.housedoor.R
 

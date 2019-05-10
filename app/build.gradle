@@ -1,10 +1,12 @@
 apply plugin: 'com.android.application'
 
-apply plugin: 'kotlin-kapt'
 
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
 
 android {
     compileSdkVersion 28
@@ -49,9 +51,11 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
-//    annotationProcessor  "com.android.databinding:compiler:3.1.4"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation 'com.airbnb.android:lottie:2.7.0'
+
 }

@@ -21,6 +21,7 @@ import door.cyron.house.housedoor.databinding.FragmentHomeBinding
 import door.cyron.house.housedoor.home.model.HouseModel
 import door.cyron.house.housedoor.home.model.SwitchModel
 import door.cyron.house.housedoor.home.view.adapter.SliderAdapter
+import door.cyron.house.housedoor.home.view.adapter.SwitchAdapter
 import door.cyron.house.housedoor.home.view.cardSlider.CardSliderLayoutManager
 import door.cyron.house.housedoor.home.view.cardSlider.CardSnapHelper
 
