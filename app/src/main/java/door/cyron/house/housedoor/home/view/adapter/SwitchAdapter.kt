@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.airbnb.lottie.LottieDrawable
 import door.cyron.house.housedoor.BR
 import door.cyron.house.housedoor.R
 import door.cyron.house.housedoor.databinding.ListItemNotificationBinding
@@ -42,7 +43,7 @@ class SwitchAdapter(var activity: FragmentActivity?, val listener: HomeFragment)
             if (binding.switchImage.tag == null) {
                 binding.switchImage.setAnimation("raw/light2_inactive.json")
                 binding.switchImage.tag = "INACTIVE"
-                binding.switchImage.repeatCount = 1
+                binding.switchImage.repeatCount = 0
                 binding.switchImage.playAnimation()
                 binding.switchImage.tag = "INACTIVE"
             }
@@ -51,12 +52,14 @@ class SwitchAdapter(var activity: FragmentActivity?, val listener: HomeFragment)
                 if (binding.switchImage.tag.equals("INACTIVE")) {
                     binding.switchImage.setAnimation("raw/light2_active.json")
                     binding.switchImage.tag = "ACTIVE"
+                    binding.switchImage.repeatCount= LottieDrawable.INFINITE
 //                    binding.switchImage.progress = 0.5f
                 } else {
                     binding.switchImage.setAnimation("raw/light2_inactive.json")
                     binding.switchImage.tag = "INACTIVE"
+                    binding.switchImage.repeatCount= 1
                 }
-                binding.switchImage.repeatCount = 2
+
 
                 binding.switchImage.playAnimation()
             }
