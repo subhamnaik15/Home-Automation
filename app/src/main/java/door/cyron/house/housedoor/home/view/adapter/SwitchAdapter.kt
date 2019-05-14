@@ -55,9 +55,9 @@ class SwitchAdapter(var activity: FragmentActivity?, val listener: HomeFragment)
                     binding.switchImage.repeatCount= LottieDrawable.INFINITE
 //                    binding.switchImage.progress = 0.5f
                 } else {
-                    binding.switchImage.setAnimation("raw/light2_inactive.json")
+                    binding.switchImage.setAnimation("raw/loder1.json")
                     binding.switchImage.tag = "INACTIVE"
-                    binding.switchImage.repeatCount= 1
+                    binding.switchImage.repeatCount= LottieDrawable.INFINITE
                 }
 
 

@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.airbnb.lottie.LottieDrawable
 import door.cyron.house.housedoor.R
 import door.cyron.house.housedoor.databinding.ActivitySigninBinding
 import door.cyron.house.housedoor.home.HomeActivity
@@ -57,20 +58,13 @@ class SigninActivity : AppCompatActivity(), SigninViewmodel.SigninListener {
 
         binding.floatingActionButton.setOnClickListener() {
 
-            val intent = (Intent(this@SigninActivity, HomeActivity::class.java))
-//            overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left);
-            val options =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    this,
-                    binding.floatingActionButton, // Starting view
-                    "demo"    // The String
-                )
-            //Start the Intent
-            ActivityCompat.startActivity(this, intent, options.toBundle())
-//            finish()
+            binding.loder.setAnimation("raw/loder1.json")
+            binding.loder.repeatCount= LottieDrawable.INFINITE
+            binding.loder.playAnimation()
+
+            signinViewmodel.signin("satyamnaik15@gmail.com", "id", "password")
 
         }
-        signinViewmodel.signin("")
 
 
     }
@@ -186,7 +180,7 @@ class SigninActivity : AppCompatActivity(), SigninViewmodel.SigninListener {
             override fun onAnimationCancel(animation: Animator) {
                 // ...
             }
-        });
+        })
     }
 
     private fun signinComing() {
@@ -217,7 +211,15 @@ class SigninActivity : AppCompatActivity(), SigninViewmodel.SigninListener {
 
     override fun onSucess() {
 
-
+        val intent = (Intent(this@SigninActivity, HomeActivity::class.java))
+        val options =
+            ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this,
+                binding.floatingActionButton, // Starting view
+                "demo"    // The String
+            )
+        ActivityCompat.startActivity(this, intent, options.toBundle())
+        finish()
     }
 
     override fun onError(error: String?) {
