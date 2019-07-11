@@ -15,9 +15,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.FileProvider;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import java.io.File;
 import java.io.FileNotFoundException;

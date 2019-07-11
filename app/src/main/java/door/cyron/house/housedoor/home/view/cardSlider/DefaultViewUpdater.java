@@ -1,8 +1,8 @@
 package door.cyron.house.housedoor.home.view.cardSlider;
 
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
 import android.view.View;
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 
 /**
  * Default implementation of {@link CardSliderLayoutManager.ViewUpdater}

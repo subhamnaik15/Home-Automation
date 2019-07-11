@@ -1,14 +1,14 @@
 package door.cyron.house.housedoor.home.view.adapter
 
 import android.content.Context
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v4.app.FragmentActivity
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.databinding.library.baseAdapters.BR
+import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieDrawable
-import door.cyron.house.housedoor.BR
 import door.cyron.house.housedoor.R
 import door.cyron.house.housedoor.databinding.ListItemNotificationBinding
 import door.cyron.house.housedoor.home.model.SwitchModel

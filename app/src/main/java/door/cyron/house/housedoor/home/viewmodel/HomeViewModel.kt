@@ -1,6 +1,6 @@
 package door.cyron.house.housedoor.home.viewmodel
 
-import android.databinding.Bindable
+import androidx.databinding.Bindable
 import door.cyron.house.housedoor.callbacks.Request
 import door.cyron.house.housedoor.configuration.ViewModel
 

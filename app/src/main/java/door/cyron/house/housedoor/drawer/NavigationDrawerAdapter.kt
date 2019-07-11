@@ -6,14 +6,14 @@ import android.animation.ObjectAnimator
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import androidx.recyclerview.widget.RecyclerView
 import door.cyron.house.housedoor.R
 import door.cyron.house.housedoor.home.HomeActivity
 import door.cyron.house.housedoor.utility.CircleImageView

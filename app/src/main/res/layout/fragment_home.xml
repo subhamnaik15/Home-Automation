@@ -7,15 +7,15 @@
         <import type="android.view.View"></import>
         <variable name="viewModel" type="door.cyron.house.housedoor.home.viewmodel.HomeViewModel"></variable>
     </data>
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <android.support.design.widget.CollapsingToolbarLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -63,12 +63,12 @@
                         </FrameLayout>
 
                         <FrameLayout
+                                android:id="@+id/frameLayout"
                                 android:layout_width="85dp"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentEnd="true"
                                 android:background="@drawable/temperature_background"
-                                android:layout_centerVertical="true"
-                                android:id="@+id/frameLayout">
+                                android:layout_centerVertical="true">
 
                             <TextSwitcher
                                     android:id="@+id/ts_temperature"
@@ -80,7 +80,7 @@
 
                     </RelativeLayout>
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view"
                             android:layout_width="match_parent"
                             android:layout_height="210dp"
@@ -99,8 +99,8 @@
                         <ImageView
                                 android:layout_width="13dp"
                                 android:layout_height="13dp"
-                                android:layout_gravity="center_vertical"
                                 android:layout_marginStart="30dp"
+                                android:layout_gravity="center_vertical"
                                 android:src="@drawable/star"
                                 android:scaleType="fitCenter"/>
 
@@ -108,17 +108,16 @@
                                 android:id="@+id/ts_place"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginStart="@dimen/left_offset"/>
+                                android:layout_marginStart="@dimen/left_offset"
+                                android:layout_gravity="center_vertical"/>
 
                     </FrameLayout>
 
                     <RelativeLayout
-                            android:layout_marginTop="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:animateLayoutChanges="true">
-
 
                         <TextSwitcher
                                 android:id="@+id/ts_description"
@@ -136,8 +135,8 @@
                             <ImageView
                                     android:layout_width="13dp"
                                     android:layout_height="13dp"
-                                    android:layout_gravity="center_vertical"
                                     android:layout_marginStart="30dp"
+                                    android:layout_gravity="center_vertical"
                                     android:src="@drawable/clock"
                                     android:scaleType="fitCenter"/>
 
@@ -145,11 +144,10 @@
                                     android:id="@+id/ts_clock"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginStart="@dimen/left_offset"/>
+                                    android:layout_marginStart="@dimen/left_offset"
+                                    android:layout_gravity="center_vertical"/>
 
                         </FrameLayout>
-
 
                     </RelativeLayout>
 
@@ -157,6 +155,7 @@
                             android:id="@+id/swipeNoState"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
+                            android:layout_marginTop="20dp"
                             app:button_trail_enabled="true"
                             android:gravity="center"
                             android:layout_gravity="center"
@@ -175,24 +174,23 @@
                             app:inner_text_top_padding="18dp"
                             app:inner_text_bottom_padding="18dp"
                             app:has_activate_state="true"
-                            android:layout_marginTop="20dp"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"/>
 
                 </LinearLayout>
 
-                <android.support.v7.widget.Toolbar
+                <androidx.appcompat.widget.Toolbar
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
                         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                         app:layout_collapseMode="pin"
                 />
-            </android.support.design.widget.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_switch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -201,13 +199,12 @@
                 android:nestedScrollingEnabled="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:spanCount="2"
-                app:layoutManager="android.support.v7.widget.GridLayoutManager"
         />
         <include
                 layout="@layout/layout_connection_error"
                 android:visibility="@{viewModel.retry?View.VISIBLE:View.GONE}"
                 app:retryListener="@{viewModel.onRetryClick}"
                 tools:visibility="gone"></include>
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
 

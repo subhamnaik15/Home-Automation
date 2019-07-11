@@ -4,9 +4,9 @@
         xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="vm" type="door.cyron.house.housedoor.home.viewmodel.SwitchViewModel"></variable>
+        <variable name="vm" type="door.cyron.house.housedoor.home.viewmodel.SwitchViewModel"/>
     </data>
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
             android:id="@+id/rel_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,5 +50,5 @@
                     android:text="@{vm.title}"/>
 
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </layout>

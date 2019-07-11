@@ -1,13 +1,13 @@
 package door.cyron.house.housedoor.home.view.cardSlider;
 
 import android.graphics.PointF;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearSmoothScroller;
-import android.support.v7.widget.LinearSnapHelper;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearSmoothScroller;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.security.InvalidParameterException;
 
@@ -19,7 +19,7 @@ public class CardSnapHelper extends LinearSnapHelper {
     private RecyclerView recyclerView;
 
     /**
-     * Attaches the {@link door.cyron.house.housedoor.home.view.cardSlider.motion.CardSnapHelper} to the provided RecyclerView, by calling
+     *
      * {@link RecyclerView#setOnFlingListener(RecyclerView.OnFlingListener)}.
      * You can call this method with {@code null} to detach it from the current RecyclerView.
      *

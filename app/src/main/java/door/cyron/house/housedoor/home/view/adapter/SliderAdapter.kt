@@ -1,10 +1,10 @@
 package door.cyron.house.housedoor.home.view.adapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import door.cyron.house.housedoor.R
 import door.cyron.house.housedoor.home.model.HouseModel
 import java.util.*

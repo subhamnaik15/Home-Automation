@@ -2,16 +2,16 @@ package door.cyron.house.housedoor.home
 
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.StyleRes
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import android.widget.ViewSwitcher
+import androidx.annotation.StyleRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import door.cyron.house.housedoor.R
 import door.cyron.house.housedoor.drawer.NavigationDrawerAdapter
 import door.cyron.house.housedoor.drawer.NavigationDrawerModel

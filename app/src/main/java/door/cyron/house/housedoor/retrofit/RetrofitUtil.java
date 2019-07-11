@@ -3,7 +3,7 @@ package door.cyron.house.housedoor.retrofit;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import door.cyron.house.housedoor.utility.Camera;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;

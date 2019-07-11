@@ -5,16 +5,15 @@ import android.content.res.TypedArray;
 import android.graphics.PointF;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.LinearSmoothScroller;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.View;
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.LinearSmoothScroller;
+import androidx.recyclerview.widget.RecyclerView;
 import door.cyron.house.housedoor.R;
 
 import java.lang.reflect.Constructor;
@@ -163,7 +162,7 @@ public class CardSliderLayoutManager extends RecyclerView.LayoutManager
         initialize(activeCardLeft, cardWidth, cardsGap, null);
     }
 
-    private void initialize(int left, int width, float gap, @Nullable ViewUpdater updater) {
+    private void initialize(int left, int width, float gap, ViewUpdater updater) {
         this.cardWidth = width;
         this.activeCardLeft = left;
         this.activeCardRight = activeCardLeft + cardWidth;
@@ -373,7 +372,7 @@ public class CardSliderLayoutManager extends RecyclerView.LayoutManager
         }
     }
 
-    @Nullable
+
     public View getTopView() {
         if (getChildCount() == 0) {
             return null;

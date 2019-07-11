@@ -1,8 +1,8 @@
 package door.cyron.house.housedoor.configuration;
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 import android.view.View;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 import door.cyron.house.housedoor.BR;
 import door.cyron.house.housedoor.utility.Network;
 
