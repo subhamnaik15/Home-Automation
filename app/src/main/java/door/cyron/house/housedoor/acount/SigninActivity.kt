@@ -58,12 +58,12 @@ class SigninActivity : AppCompatActivity(), SigninViewmodel.SigninListener {
 
         binding.floatingActionButton.setOnClickListener() {
 
-            binding.loder.setAnimation("raw/loder1.json")
-            binding.loder.repeatCount= LottieDrawable.INFINITE
-            binding.loder.playAnimation()
+//            binding.loder.setAnimation("raw/loder1.json")
+//            binding.loder.repeatCount= LottieDrawable.INFINITE
+//            binding.loder.playAnimation()
 
-            signinViewmodel.signin("satyamnaik15@gmail.com", "id", "password")
-
+//            signinViewmodel.signin("satyamnaik15@gmail.com", "id", "password")
+            onSucess()
         }
 
 
