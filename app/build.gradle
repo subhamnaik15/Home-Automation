@@ -29,6 +29,9 @@ android {
     dataBinding {
         enabled = true
     }
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
 }
 
 ext {
@@ -64,6 +67,7 @@ dependencies {
 
     implementation "com.airbnb.android:lottie:$lottie"
 
+    implementation 'com.github.PhilJay:MPAndroidChart:v2.1.6'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1-alpha01'

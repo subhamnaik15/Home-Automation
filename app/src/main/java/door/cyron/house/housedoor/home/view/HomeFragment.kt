@@ -3,6 +3,7 @@ package door.cyron.house.housedoor.home.view
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
@@ -15,6 +16,10 @@ import android.widget.ViewSwitcher
 import androidx.annotation.StyleRes
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import door.cyron.house.housedoor.R
 import door.cyron.house.housedoor.callbacks.OnItemClickListener
 import door.cyron.house.housedoor.databinding.FragmentHomeBinding
@@ -24,6 +29,9 @@ import door.cyron.house.housedoor.home.view.adapter.SliderAdapter
 import door.cyron.house.housedoor.home.view.adapter.SwitchAdapter
 import door.cyron.house.housedoor.home.view.cardSlider.CardSliderLayoutManager
 import door.cyron.house.housedoor.home.view.cardSlider.CardSnapHelper
+import door.cyron.house.housedoor.utility.CustomMarkerView
+import door.cyron.house.housedoor.utility.MyValueFormatter
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 /**
@@ -83,36 +91,12 @@ class HomeFragment : Fragment(), OnItemClickListener<SwitchModel> {
         initRecyclerView()
         initCountryText()
         initSwitchers()
-        binding.recyclerViewSwitch.adapter = SwitchAdapter(activity, this)
 
-        fillSwitchList()
-
+        openChart()
+        openCircleChart()
         return binding.root
     }
 
-    private fun fillSwitchList() {
-
-        var list = ArrayList<SwitchModel>()
-        val a1 = SwitchModel()
-        a1.name = "satyam"
-        a1.title = "title1"
-        a1.type = "light"
-        list.add(a1)
-        val a2 = SwitchModel()
-        a2.name = "subham"
-        a2.title = "title1"
-        a2.type = "fan"
-        list.add(a2)
-        val a3 = SwitchModel()
-        a3.name = "micky"
-        a3.title = "title1"
-        a3.type = "fan"
-        list.add(a3)
-        list.addAll(list)
-        list.addAll(list)
-
-        (binding.recyclerViewSwitch.adapter as SwitchAdapter).setList(list)
-    }
 
     override fun onItemClick(t: SwitchModel, view: View, position: Int) {
 
@@ -359,5 +343,144 @@ class HomeFragment : Fragment(), OnItemClickListener<SwitchModel> {
 
     }
 
+    private fun openChart() {
+        val entries = java.util.ArrayList<Entry>()
+        val ent = java.util.ArrayList<Int>()
+        val colors = java.util.ArrayList<Int>()
+        ent.add(20)
+        ent.add(32)
+        ent.add(65)
+        ent.add(70)
+        ent.add(75)
+        for (i in ent.indices) {
+            entries.add(Entry(ent[i].toFloat(), i))
+        }
+        /*entries.add(new Entry(20f, 0));
+        entries.add(new Entry(55f, 1));
+        entries.add(new Entry(65f, 2));
+        entries.add(new Entry(70f, 3));
+        entries.add(new Entry(75f, 4));*/
 
+
+        val dataset = LineDataSet(entries, "")
+        val labels = java.util.ArrayList<String>()
+        labels.add("a")
+        labels.add("b")
+        labels.add("c")
+        labels.add("d")
+        labels.add("e")
+        labels.add("")
+
+        for (i in ent.indices) {
+            if (ent[i] < 33) {
+                colors.add(Color.parseColor("#ff008577"))
+                //dataset.setCircleColor(((Color.parseColor("#ff0000"))));
+            } else
+                colors.add(Color.parseColor("#24a6a4"))
+
+        }
+
+        val data = LineData(labels, dataset)
+        //dataset.setColors(ColorTemplate.createColors(new int[]{(Color.parseColor("#24a6a4"))})); //
+        // dataset.setDrawCubic(true);
+        dataset.setDrawFilled(false)
+        dataset.setDrawValues(true)
+        dataset.setDrawCircles(true)
+        dataset.setDrawCircleHole(false)
+        dataset.circleColors = colors
+        dataset.valueFormatter = MyValueFormatter() //for hiding decimal value in graph plotting
+        dataset.valueTextColor = Color.parseColor("#212121")
+
+        val xAxis = binding.progressReportChart.getXAxis()
+        xAxis.setAxisLineWidth(1f)
+        xAxis.setAxisLineColor(Color.parseColor("#24a6a4"))
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM)
+        xAxis.setAvoidFirstLastClipping(true)
+
+
+        val leftAxis = binding.progressReportChart.getAxisLeft()
+        leftAxis.setAxisLineWidth(1f)
+        leftAxis.setAxisLineColor(Color.parseColor("#24a6a4"))
+        leftAxis.setStartAtZero(true)
+        leftAxis.setAxisMaxValue(100f)
+
+        //        Integer max_val = Collections.max(totalList);
+
+        //        if(max_val<=10)
+        //        {
+        //            leftAxis.setAxisMaxValue(10);
+        //            progressReportChart.getViewPortHandler().setMaximumScaleY(1f);
+        //        }
+        //
+        //        else
+        //        {
+        //            leftAxis.setAxisMaxValue(max_val+5);
+        //            progressReportChart.getViewPortHandler().setMaximumScaleY(2f);
+        //        }
+
+        binding.progressReportChart.setDescription("")
+        binding.progressReportChart.setDrawGridBackground(false)
+        binding.progressReportChart.getAxisRight().setEnabled(false)
+        binding.progressReportChart.getXAxis().setDrawGridLines(false)
+        binding.progressReportChart.getAxisLeft().setDrawGridLines(false)
+
+        // chartContainer.removeAllViews();
+        //lineChart.getViewPortHandler().setMaximumScaleY(0f);
+        binding.progressReportChart.setData(data)
+        binding.progressReportChart.animateY(1000)
+        binding.progressReportChart.getLegend().setEnabled(false)
+
+        binding.progressReportChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+            override fun onValueSelected(e: Entry, dataSetIndex: Int, h: Highlight) {
+                val mv = CustomMarkerView(activity, R.layout.marker_layout)
+                binding.progressReportChart.setMarkerView(mv)
+
+            }
+
+            override fun onNothingSelected() {
+
+            }
+        })
+    }
+
+    private fun openCircleChart() {
+        binding.staffAttChart.setTouchEnabled(false)
+        binding.staffAttChart.setUsePercentValues(true)
+        val yvalues = java.util.ArrayList<Entry>()
+        yvalues.add(Entry(50f, 0))
+        yvalues.add(Entry(33f, 1))
+        yvalues.add(Entry(17f, 2))
+
+
+        val dataSet = PieDataSet(yvalues, "staff Results")
+        val colorlist = java.util.ArrayList<Int>()
+        colorlist.add(Color.parseColor("#26aa8a"))
+        colorlist.add(Color.parseColor("#f19b1f"))
+        colorlist.add(Color.parseColor("#cd3147"))
+
+        dataSet.colors = colorlist
+        val xVals = java.util.ArrayList<String>()
+
+        xVals.add("")
+        xVals.add("")
+        xVals.add("")
+
+
+        val data = PieData(xVals, dataSet)
+        //        data.setValueFormatter(new PercentFormatter());
+        binding.staffAttChart.data = data
+        binding.staffAttChart.isDrawHoleEnabled = true
+        binding.staffAttChart.transparentCircleRadius = 30f
+
+        binding.staffAttChart.holeRadius = 45f
+        data.setValueTextSize(7f)
+        data.setValueTextColor(Color.WHITE)
+        binding.staffAttChart.animateY(1000)
+        binding.staffAttChart.legend.isEnabled = false
+        binding.staffAttChart.setDescription("")
+        binding.staffAttChart.setCenterText("%")
+        binding.staffAttChart.setCenterTextColor(Color.parseColor("#045187"))
+        binding.staffAttChart.invalidate()
+
+    }
 }
