@@ -5,7 +5,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
-import door.cyron.house.housedoor.home.HomeActivity
+import door.cyron.house.housedoor.home.MainActivity
 
 class Util {
 
@@ -19,7 +19,7 @@ class Util {
         }
 
         fun startAnimationAccTwo(
-            activity: HomeActivity,
+            activity: MainActivity,
             viewTwoDemo: View,
             viewone: CircleImageView,
             viewTwo: CircleImageView,
@@ -62,7 +62,7 @@ class Util {
         }
 
 
-        fun exitAnimationTwo(activity: HomeActivity, one: View, x: Float, pos: Int, viewTwoDemo: View) {
+        fun exitAnimationTwo(activity: MainActivity, one: View, x: Float, pos: Int, viewTwoDemo: View) {
             val profileInSet = AnimatorSet()
             profileInSet.playTogether(
                 ObjectAnimator.ofFloat(one, "alpha", 1f, 0f).setDuration(150),
@@ -94,7 +94,7 @@ class Util {
 
         }
 
-        fun startanimation(activity: HomeActivity, viewDemo: View, pos: Int) {
+        fun startanimation(activity: MainActivity, viewDemo: View, pos: Int) {
             viewDemo.visibility = View.VISIBLE
             val profileInSet = AnimatorSet()
 
@@ -111,13 +111,13 @@ class Util {
 
                 override fun onAnimationEnd(animator: Animator) {
 
-                    (activity).drawerClose(pos)
+//                    (activity).drawerClose(pos)
                     //                updateFriendList(pos);
                 }
 
                 override fun onAnimationCancel(animator: Animator) {
                     //                updateFriendList(pos);
-                    (activity).drawerClose(pos)
+//                    (activity).drawerClose(pos)
                 }
 
                 override fun onAnimationRepeat(animator: Animator) {
@@ -128,7 +128,7 @@ class Util {
 
 
         fun startAnimationAcc(
-            activity: HomeActivity,
+            activity: MainActivity,
             viewThreeDemo: View, viewone: CircleImageView, viewTwo: CircleImageView, pos: Int, viewoneHeight: Int
             , viewoneWidth: Int
         ) {
@@ -164,7 +164,7 @@ class Util {
             })
         }
 
-        fun exitAnimation(activity: HomeActivity, one: View, x: Float, pos: Int, viewDemo: View) {
+        fun exitAnimation(activity: MainActivity, one: View, x: Float, pos: Int, viewDemo: View) {
             val profileInSet = AnimatorSet()
             profileInSet.playTogether(
                 ObjectAnimator.ofFloat(one, "alpha", 1f, 0f).setDuration(200),

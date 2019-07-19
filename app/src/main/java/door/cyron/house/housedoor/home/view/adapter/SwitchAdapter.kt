@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieDrawable
+import door.cyron.house.housedoor.BR
 import door.cyron.house.housedoor.R
 import door.cyron.house.housedoor.databinding.ListItemNotificationBinding
 import door.cyron.house.housedoor.home.model.SwitchModel
@@ -16,7 +16,10 @@ import door.cyron.house.housedoor.home.view.HomeFragment
 import door.cyron.house.housedoor.home.viewmodel.SwitchViewModel
 import door.cyron.house.housedoor.utility.RecyclerViewHolder
 
-class SwitchAdapter(var activity: FragmentActivity?, val listener: HomeFragment) :
+class SwitchAdapter(
+    var activity: FragmentActivity?,
+    val listener: HomeFragment
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var list = arrayListOf<SwitchModel>()

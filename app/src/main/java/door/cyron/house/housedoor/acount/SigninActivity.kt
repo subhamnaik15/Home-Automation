@@ -17,7 +17,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import door.cyron.house.housedoor.R
 import door.cyron.house.housedoor.databinding.ActivitySigninBinding
-import door.cyron.house.housedoor.home.HomeActivity
+import door.cyron.house.housedoor.home.MainActivity
 
 
 class SigninActivity : AppCompatActivity(), SigninViewmodel.SigninListener {
@@ -210,7 +210,7 @@ class SigninActivity : AppCompatActivity(), SigninViewmodel.SigninListener {
 
     override fun onSucess() {
 
-        val intent = (Intent(this@SigninActivity, HomeActivity::class.java))
+        val intent = (Intent(this@SigninActivity, MainActivity::class.java))
         val options =
             ActivityOptionsCompat.makeSceneTransitionAnimation(
                 this,
